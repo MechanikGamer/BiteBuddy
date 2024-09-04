@@ -30,6 +30,11 @@ const CardMain: React.FC<CardMainProps> = ({ products }) => {
     setModalVisible(true);
   };
 
+  const handleOnPressOrder = () => {
+    setModalVisible(false);
+    console.log('Order Now Pressed');
+  };
+
   const renderProduct = ({ item }: { item: Product }) => (
     <TouchableOpacity
       style={styles.card}
@@ -98,7 +103,10 @@ const CardMain: React.FC<CardMainProps> = ({ products }) => {
                   <View style={styles.priceContainer2}>
                     <Text style={styles.price2}>${selectedProduct.price}</Text>
                   </View>
-                  <TouchableOpacity style={styles.primaryButtonWrapper}>
+                  <TouchableOpacity
+                    onPress={handleOnPressOrder}
+                    style={styles.primaryButtonWrapper}
+                  >
                     <Text style={styles.primaryButtonText}>ORDER NOW</Text>
                   </TouchableOpacity>
                 </View>
