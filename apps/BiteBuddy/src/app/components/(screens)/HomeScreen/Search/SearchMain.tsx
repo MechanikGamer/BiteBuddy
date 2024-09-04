@@ -1,22 +1,16 @@
 import { StyleSheet, View } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import SearchInput from './SearchInput';
 
-const SearchMain: React.FC<{ onSearch: (text: string) => void }> = ({
-  onSearch,
-}) => {
-  const [searchText, setSearchText] = useState('');
-
-  const handleSearchChange = (text: string) => {
-    setSearchText(text);
-    onSearch(text);
-  };
-
+const SearchMain: React.FC<{
+  searchText: string;
+  onSearch: (text: string) => void;
+}> = ({ searchText, onSearch }) => {
   return (
     <View style={styles.container}>
       <SearchInput
         value={searchText}
-        onChangeText={handleSearchChange}
+        onChangeText={onSearch}
         placeholder="Search"
         onSettingsPress={() => console.log('Settings pressed')}
       />

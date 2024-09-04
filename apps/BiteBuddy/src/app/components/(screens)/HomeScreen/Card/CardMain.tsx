@@ -6,12 +6,16 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  Dimensions,
   Modal,
   SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Product } from '../../../../utility/data/products';
 import colors from '../../../../utility/styles/colors';
+
+const { width } = Dimensions.get('window');
+const cardWidth = (width - 60) / 2;
 
 interface CardMainProps {
   products: Product[];
@@ -21,25 +25,27 @@ const CardMain: React.FC<CardMainProps> = ({ products }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  const onPressHandler = (product: Product) => {
-    console.log('Selected Product Image:', product.image);
+  const handleProductPress = (product: Product) => {
     setSelectedProduct(product);
     setModalVisible(true);
   };
 
   const renderProduct = ({ item }: { item: Product }) => (
-    <TouchableOpacity style={styles.card} onPress={() => onPressHandler(item)}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => handleProductPress(item)}
+    >
       <View style={styles.imageContainer}>
-        <Image source={item.image} style={styles.image} />
+        <Image source={item.image} style={styles.image} resizeMode="contain" />
       </View>
       <Text style={styles.title}>{item.name}</Text>
       <Text style={styles.secondName}>{item.secondName}</Text>
-      <View style={styles.cardFooterContainer}>
-        <View style={styles.starContainer}>
-          <Icon name="star" size={16} color="#FFD700" />
+      <View style={styles.footerWrapper}>
+        <View style={styles.ratingContainer}>
+          <Icon name="star" size={16} color={colors.starColor} />
           <Text style={styles.rating}>{item.rating}</Text>
         </View>
-        <View style={styles.containerPrice}>
+        <View style={styles.priceContainer}>
           <Text style={styles.price}>${item.price}</Text>
         </View>
       </View>
@@ -52,7 +58,7 @@ const CardMain: React.FC<CardMainProps> = ({ products }) => {
         data={products}
         renderItem={renderProduct}
         keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.listContainer}
+        contentContainerStyle={[styles.listContainer]}
         numColumns={2}
       />
       <Modal
@@ -102,89 +108,75 @@ const styles = StyleSheet.create({
   listContainer: {
     paddingHorizontal: 10,
   },
-  noProductsContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  singleItemListContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
   },
-  noProductsText: {
-    fontSize: 18,
-    color: '#888',
+  singleItemWrapper: {
+    justifyContent: 'flex-start',
   },
   card: {
     backgroundColor: 'white',
     margin: 10,
     padding: 10,
     borderRadius: 10,
-    width: '45%',
+    width: cardWidth,
     shadowColor: 'rgba(0, 0, 0, 0.25)',
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
+    shadowOffset: { width: 0, height: 5 },
     shadowRadius: 9,
     elevation: 9,
     shadowOpacity: 1,
   },
+  imageContainer: {
+    width: '100%',
+    height: 120,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageContainer2: {
+    height: 300,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   image: {
     width: '100%',
-    height: 100,
+    height: '100%',
     borderRadius: 10,
-    alignSelf: 'center',
-    justifyContent: 'center',
   },
   title: {
     marginTop: 10,
     fontWeight: '600',
-    fontFamily: 'Roboto-Bold',
     fontSize: 16,
-    color: '#3c2f2f',
-    textAlign: 'left',
+    color: colors.textPrimary,
+    textAlign: 'center',
+  },
+  secondName: {
+    fontSize: 14,
+    color: colors.textHelper,
+    textAlign: 'center',
+    marginTop: 5,
+  },
+  ratingContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 5,
+    marginLeft: 5,
   },
   rating: {
     fontSize: 14,
     fontWeight: 'bold',
-    marginLeft: 7,
-  },
-  secondName: {
-    fontSize: 16,
-    marginTop: 5,
-    color: '#6a6a6a',
-    fontFamily: 'Roboto-Regular',
-  },
-  starContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 5,
-    width: '50%',
-    height: 20,
-  },
-  cardFooterContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 10,
+    marginLeft: 5,
+    color: colors.textPrimary,
   },
   price: {
     fontSize: 16,
-    color: '#FFF',
-    backgroundColor: colors.primary,
-    lineHeight: 30,
+    color: colors.textWhite,
     fontWeight: '600',
     fontFamily: 'Roboto-Bold',
-    textAlign: 'left',
-    paddingHorizontal: 5,
-  },
-  containerPrice: {
-    backgroundColor: colors.primary,
     padding: 5,
     borderRadius: 10,
-  },
-  imageContainer: {
-    width: '90%',
-    height: 106,
-    justifyContent: 'center',
-    alignItems: 'center',
+    textAlign: 'center',
   },
   modalContainer: {
     flex: 1,
@@ -196,11 +188,11 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: colors.mainBackground,
     borderRadius: 10,
   },
   image2: {
-    width: '100%',
+    width: '80%',
     height: 300,
     borderRadius: 10,
     marginBottom: 20,
@@ -224,12 +216,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     borderRadius: 10,
   },
-  imageContainer2: {
-    width: '100%',
-    height: 300,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   navigationBar: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -242,9 +228,20 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: colors.backButtonBacground,
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: -5,
+  },
+  footerWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  priceContainer: {
+    backgroundColor: colors.primary,
+    padding: 5,
+    borderRadius: 10,
   },
 });

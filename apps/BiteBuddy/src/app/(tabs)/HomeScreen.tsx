@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, StyleSheet } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Text } from 'react-native';
 import Header from '../components/(screens)/HomeScreen/Header/Header';
 import SearchMain from '../components/(screens)/HomeScreen/Search/SearchMain';
 import OptionsList from '../components/(screens)/HomeScreen/FlatList/OptionsList';
 import CardMain from '../components/(screens)/HomeScreen/Card/CardMain';
-import Products from '../utility/data/products'; // Adjust the path to your Products data
+import Products from '../utility/data/products';
 
 function HomeScreen() {
   const [filteredProducts, setFilteredProducts] = useState(Products);
   const [searchText, setSearchText] = useState('');
 
   const handleCategorySelect = (category?: number) => {
+    setSearchText('');
     const filtered = Products.filter((product) =>
-      category ? product.category === category : true
+      category !== undefined ? product.category === category : true
     );
     setFilteredProducts(filtered);
   };
@@ -31,10 +32,14 @@ function HomeScreen() {
         <Header />
       </View>
       <View style={styles.searchContainer}>
-        <SearchMain onSearch={handleSearch} />
+        <SearchMain searchText={searchText} onSearch={handleSearch} />
         <OptionsList onSelect={handleCategorySelect} />
         <View style={styles.content}>
-          <CardMain products={filteredProducts} />
+          {filteredProducts.length > 0 ? (
+            <CardMain products={filteredProducts} />
+          ) : (
+            <Text style={styles.noProductsText}>No products found</Text>
+          )}
         </View>
       </View>
     </SafeAreaView>
@@ -56,5 +61,11 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     marginTop: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noProductsText: {
+    fontSize: 18,
+    color: '#888',
   },
 });
