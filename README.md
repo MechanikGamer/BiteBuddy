@@ -6,8 +6,8 @@ I created this app in just a few hours to test my skills in React Native. It's s
 
 Screenshots:
 
-<img src="./apps/BiteBuddy/assets/screenshots/1.png" alt="Screenshot 1" width="300"/>
-<img src="./apps/BiteBuddy/assets/screenshots/2.png" alt="Screenshot 2" width="300"/>
+<img src="./apps/BiteBuddy/assets/screenshots/1.png" alt="Screenshot 1" width="200"/>
+<img src="./apps/BiteBuddy/assets/screenshots/2.png" alt="Screenshot 2" width="200"/>
 
 ## Changelog
 
