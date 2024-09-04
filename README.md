@@ -7,14 +7,16 @@ I created this app in just a few hours to test my skills in React Native. It's s
 Screenshots:
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="./apps/BiteBuddy/assets/screenshots/1.png" alt="Screenshot 1" width="300"/>
-  <img src="./apps/BiteBuddy/assets/screenshots/2.png" alt="Screenshot 2" width="300"/>
+  <img src="./apps/BiteBuddy/assets/screenshots/1.png" alt="Screenshot 1" width="300" style="margin: 20px;" />
+  <img src="./apps/BiteBuddy/assets/screenshots/2.png" alt="Screenshot 2" width="300" style="margin: 20px;" />
+  <img src="./apps/BiteBuddy/assets/screenshots/3.png" alt="Screenshot 3" width="300" style="margin: 20px;" />
 </div>
 
 ## Changelog
 
 ### Version 0.0.1
 
+- Created `Product Detail Screen`
 - Created `HomeScreen`
 - Initial setup of the app
 - Added basic burger ordering functionality

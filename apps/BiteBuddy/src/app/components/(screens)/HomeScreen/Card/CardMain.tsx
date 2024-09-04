@@ -92,7 +92,16 @@ const CardMain: React.FC<CardMainProps> = ({ products }) => {
                 <Text style={styles.description}>
                   {selectedProduct.description}
                 </Text>
-                <Text style={styles.price2}>${selectedProduct.price}</Text>
+
+                {/* Footer Section */}
+                <View style={styles.footerModalContainer}>
+                  <View style={styles.priceContainer2}>
+                    <Text style={styles.price2}>${selectedProduct.price}</Text>
+                  </View>
+                  <TouchableOpacity style={styles.primaryButtonWrapper}>
+                    <Text style={styles.primaryButtonText}>ORDER NOW</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </SafeAreaView>
           )}
@@ -107,13 +116,6 @@ export default CardMain;
 const styles = StyleSheet.create({
   listContainer: {
     paddingHorizontal: 10,
-  },
-  singleItemListContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-  },
-  singleItemWrapper: {
-    justifyContent: 'flex-start',
   },
   card: {
     backgroundColor: 'white',
@@ -185,11 +187,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    width: '100%',
-    height: '100%',
+    flex: 1,
     padding: 20,
     backgroundColor: colors.mainBackground,
     borderRadius: 10,
+    justifyContent: 'space-between',
   },
   image2: {
     width: '80%',
@@ -208,13 +210,11 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 16,
-    color: '#666',
+    color: colors.textHelper,
     marginBottom: 20,
-  },
-  price2: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    borderRadius: 10,
+    lineHeight: 27,
+    fontFamily: 'Roboto-Regular',
+    textAlign: 'left',
   },
   navigationBar: {
     flexDirection: 'row',
@@ -243,5 +243,45 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     padding: 5,
     borderRadius: 10,
+  },
+  priceContainer2: {
+    backgroundColor: colors.primary,
+    borderRadius: 20,
+    maxWidth: 120,
+    marginLeft: 0,
+    height: 70,
+  },
+  price2: {
+    borderRadius: 10,
+    color: colors.textWhite,
+    fontSize: 22,
+    padding: 20,
+    lineHeight: 30,
+    fontWeight: '600',
+    fontFamily: 'Roboto-Bold',
+  },
+  footerModalContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+    width: '100%',
+  },
+  primaryButtonWrapper: {
+    backgroundColor: colors.textPrimary,
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+    height: 70,
+    textAlign: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+  },
+  primaryButtonText: {
+    color: colors.textWhite,
+    fontSize: 18,
+    lineHeight: 24,
+    fontWeight: '600',
+    fontFamily: 'Inter-SemiBold',
+    textAlign: 'center',
   },
 });
