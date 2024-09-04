@@ -9,8 +9,8 @@ import {
   Modal,
   SafeAreaView,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Import FontAwesome icons
-import Products, { Product } from '../../../../utility/data/products';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Product } from '../../../../utility/data/products';
 import colors from '../../../../utility/styles/colors';
 
 interface CardMainProps {
@@ -35,8 +35,13 @@ const CardMain: React.FC<CardMainProps> = ({ products }) => {
       <Text style={styles.title}>{item.name}</Text>
       <Text style={styles.secondName}>{item.secondName}</Text>
       <View style={styles.cardFooterContainer}>
-        <Text style={styles.rating}>{item.rating}</Text>
-        <Text style={styles.price}>${item.price}</Text>
+        <View style={styles.starContainer}>
+          <Icon name="star" size={16} color="#FFD700" />
+          <Text style={styles.rating}>{item.rating}</Text>
+        </View>
+        <View style={styles.containerPrice}>
+          <Text style={styles.price}>${item.price}</Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -69,11 +74,10 @@ const CardMain: React.FC<CardMainProps> = ({ products }) => {
                   </TouchableOpacity>
                 </View>
                 <View style={styles.imageContainer2}>
-                  {/* Dynamically require the image */}
                   <Image
                     source={selectedProduct.image}
                     style={styles.image2}
-                    resizeMode="contain" // Ensures the image fits within the container
+                    resizeMode="contain"
                   />
                 </View>
                 <Text style={styles.title2}>
@@ -169,7 +173,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'Roboto-Bold',
     textAlign: 'left',
-    paddingHorizontal: 7,
+    paddingHorizontal: 5,
+  },
+  containerPrice: {
+    backgroundColor: colors.primary,
+    padding: 5,
     borderRadius: 10,
   },
   imageContainer: {
@@ -192,11 +200,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   image2: {
-    width: '100%', // Image takes full width of the container
-    height: 300, // Adjusted height for better visibility
+    width: '100%',
+    height: 300,
     borderRadius: 10,
     marginBottom: 20,
-    resizeMode: 'contain', // Ensures the image fits within the container
+    resizeMode: 'contain',
   },
   title2: {
     fontSize: 25,
@@ -214,10 +222,11 @@ const styles = StyleSheet.create({
   price2: {
     fontSize: 20,
     fontWeight: 'bold',
+    borderRadius: 10,
   },
   imageContainer2: {
-    width: '100%', // Ensure the container takes the full width
-    height: 300, // Set the height to match the image height
+    width: '100%',
+    height: 300,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -227,7 +236,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     height: 50,
-    paddingHorizontal: 5, // Reduced padding to move the button left
+    paddingHorizontal: 5,
   },
   backButton: {
     width: 40,
@@ -236,6 +245,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: -5, // Move the back button slightly to the left
+    marginLeft: -5,
   },
 });

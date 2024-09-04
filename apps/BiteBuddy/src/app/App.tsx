@@ -17,11 +17,15 @@ const Tab = createBottomTabNavigator();
 const loadFonts = () => {
   return Font.loadAsync({
     'Lobster-Regular': require('../../assets/fonts/Lobster-Regular.ttf'),
+    'Inter-Medium': require('../../assets/fonts/Inter-Medium.ttf'),
     'Inter-Regular': require('../../assets/fonts/Inter-Regular.ttf'),
     'Inter-Bold': require('../../assets/fonts/Inter-Bold.ttf'),
     'Roboto-Regular': require('../../assets/fonts/Roboto-Regular.ttf'),
     'Roboto-Bold': require('../../assets/fonts/Roboto-Bold.ttf'),
     'Roboto-Medium': require('../../assets/fonts/Roboto-Medium.ttf'),
+    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
+    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
+    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
   });
 };
 
@@ -47,7 +51,7 @@ export const App = () => {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="dark-content" backgroundColor={'#ededed'} />
       <NavigationContainer>
         <Tab.Navigator
           tabBar={(props) => <CustomTabBar {...props} />}
